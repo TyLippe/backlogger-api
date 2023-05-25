@@ -5,21 +5,30 @@ import { getTwitchToken } from '../utils/getTwitchToken';
 
 @Injectable()
 export class GamesService {
+  twitchToken = null;
   twitchAPI = 'https://api.igdb.com/v4/games';
   client_id = process.env.IGDB_CLIENT_ID;
 
+  async setTwitchToken() {
+    if (!this.twitchToken) {
+      console.log('Twitch Token not set...');
+      console.log('Getting token...');
+      this.twitchToken = await getTwitchToken();
+    }
+  }
+
   async getGamesByName(gameTitle: string): Promise<any> {
-    const twitchToken = await getTwitchToken();
+    await this.setTwitchToken();
 
     return await axios
       .post(
-        `${this.twitchAPI}/search=${gameTitle}&fields=name,id`,
+        `${this.twitchAPI}/?search=${gameTitle}&fields=name,id`,
         {},
         {
           headers: {
             'Content-Type': 'application/json',
             'Client-ID': this.client_id,
-            Authorization: `Bearer ${twitchToken.access_token}`,
+            Authorization: `Bearer ${this.twitchToken.access_token}`,
           },
         },
       )
