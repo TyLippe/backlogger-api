@@ -22,7 +22,7 @@ export class GamesService {
 
     return await axios
       .post(
-        `${this.twitchAPI}/?search=${gameTitle}&fields=name,id`,
+        `${this.twitchAPI}/?search=${gameTitle}&fields=name,id&limit=50`,
         {},
         {
           headers: {
