@@ -7,4 +7,6 @@ export class GameDTO {
   id: number;
   cover: number;
   coverURL: string;
+  platforms: string[];
+  releaseDates: string;
 }
