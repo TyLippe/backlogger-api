@@ -9,25 +9,35 @@ import { ListsModule } from './lists/lists.module';
 import { UsersModule } from './user/users.module';
 import { Users } from './user/entity/user.entity';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        url: configService.get('DATABASE_URL'),
-        ssl: {
-          rejectUnauthorized: false,
-        },
-        // host: configService.get('DB_HOST'),
-        // port: configService.get<number>('DB_PORT'),
-        // username: configService.get('DB_USERNAME'),
-        // password: configService.get('DB_PASSWORD'),
-        // database: configService.get('DB_NAME'),
-        entities: [Users],
-        synchronize: true,
-      }),
+      useFactory: (configService: ConfigService) =>
+        isProduction
+          ? {
+              type: 'postgres',
+              url: configService.get('DATABASE_URL'),
+              ssl: {
+                rejectUnauthorized: false,
+              },
+              entities: [Users],
+              synchronize: true,
+            }
+          : {
+              type: 'postgres',
+
+              host: configService.get('DB_HOST'),
+              port: configService.get<number>('DB_PORT'),
+              username: configService.get('DB_USERNAME'),
+              password: configService.get('DB_PASSWORD'),
+              database: configService.get('DB_NAME'),
+              entities: [Users],
+              synchronize: true,
+            },
       inject: [ConfigService],
     }),
     GamesModule,
