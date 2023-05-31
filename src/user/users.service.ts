@@ -14,11 +14,11 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  upsertUser(userDto: CreateUserDto) {
-    return this.userRepository.save(userDto);
+  findUserByEmail(email: string) {
+    return this.userRepository.findOneBy({ email });
   }
 
-  findUserById(id: string) {
-    return this.userRepository.findOneBy({ id });
+  upsertUser(userDto: CreateUserDto) {
+    return this.userRepository.save(userDto);
   }
 }

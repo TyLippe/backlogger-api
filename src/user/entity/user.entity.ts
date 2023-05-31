@@ -1,9 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Users {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryColumn({
+    name: 'email_address',
+    nullable: false,
+    default: '',
+  })
+  email: string;
 
   @Column({
     nullable: false,
@@ -12,11 +16,10 @@ export class Users {
   username: string;
 
   @Column({
-    name: 'email_address',
     nullable: false,
     default: '',
   })
-  email: string;
+  name: string;
 
   @Column('text', { array: true })
   listIds: string[];
