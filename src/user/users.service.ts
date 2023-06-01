@@ -18,7 +18,7 @@ export class UsersService {
     return this.userRepository.findOneBy({ email });
   }
 
-  upsertUser(userDto: CreateUserDto) {
+  createUser(userDto: CreateUserDto) {
     return this.userRepository.save(userDto);
   }
 }

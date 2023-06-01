@@ -8,6 +8,7 @@ import { GamesModule } from './games/games.module';
 import { ListsModule } from './lists/lists.module';
 import { UsersModule } from './user/users.module';
 import { Users } from './user/entity/user.entity';
+import { Lists } from './lists/entity/list.entity';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -24,7 +25,7 @@ const isProduction = process.env.NODE_ENV === 'production';
               ssl: {
                 rejectUnauthorized: false,
               },
-              entities: [Users],
+              entities: [Users, Lists],
               synchronize: true,
             }
           : {
@@ -35,7 +36,7 @@ const isProduction = process.env.NODE_ENV === 'production';
               username: configService.get('DB_USERNAME'),
               password: configService.get('DB_PASSWORD'),
               database: configService.get('DB_NAME'),
-              entities: [Users],
+              entities: [Users, Lists],
               synchronize: true,
             },
       inject: [ConfigService],
