@@ -12,4 +12,11 @@ export class GamesController {
 
     return await this.gamesService.getGameData(gameTitle);
   }
+
+  @Get('/namesByIds')
+  async getGameNamesById(@Query('ids') ids): Promise<any> {
+    if (!ids.length) return;
+
+    return await this.gamesService.getGameNamesById(ids);
+  }
 }

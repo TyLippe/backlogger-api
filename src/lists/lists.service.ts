@@ -10,15 +10,22 @@ export class ListsService {
     @InjectRepository(Lists) private readonly listRepository: Repository<Lists>,
   ) {}
 
-  getAllLists() {
-    return this.listRepository.find();
-  }
-
-  getUserLists(userId: string) {
-    return this.listRepository.findBy({ userId });
+  async getUserLists(userId: string) {
+    const listData = {};
+    const res = await this.listRepository.findBy({ userId });
+    for (let list of res) {
+      listData[list.id] = {
+        ...list,
+        games: JSON.parse(list.games) || {},
+      };
+    }
+    return listData;
   }
 
   createList(listDto: CreateListDto) {
-    return this.listRepository.save(listDto);
+    return this.listRepository.save({
+      ...listDto,
+      games: JSON.stringify(listDto.games),
+    });
   }
 }

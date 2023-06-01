@@ -7,11 +7,6 @@ import { CreateListDto } from './dto/createList.dto';
 export class ListsController {
   constructor(private readonly listsService: ListsService) {}
 
-  @Get()
-  getLists() {
-    return this.listsService.getAllLists();
-  }
-
   @Get(`userId/:userId`)
   getListsByUserId(@Param('userId') userId: string) {
     return this.listsService.getUserLists(userId);

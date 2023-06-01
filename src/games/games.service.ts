@@ -104,4 +104,17 @@ export class GamesService {
         .catch((err) => console.log(err));
     }
   }
+
+  async getGameNamesById(ids): Promise<any> {
+    return await this.client
+      .fields('name')
+      .limit(ids.length)
+      .where(`id=(${ids.join(',')})`)
+      .request('/games')
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  }
 }

@@ -1,16 +1,15 @@
-import { IsArray, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-
 export class CreateListDto {
-  @IsEmail()
-  @IsNotEmpty()
+  id: string;
   userId: string;
-
-  @IsNotEmpty()
-  @MinLength(3)
   name: string;
+  games: CreateGameDto;
+}
 
-  @IsArray()
-  games: number[];
+export class CreateGameDto {
+  [id: string]: Game;
+}
 
+export class Game {
+  name: string;
   id: string;
 }

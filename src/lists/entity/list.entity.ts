@@ -15,6 +15,8 @@ export class Lists {
   })
   name: string; // Name of list
 
-  @Column('integer', { array: true })
-  games: number[]; // List of IGDB game ids
+  @Column({
+    nullable: true,
+  })
+  games: string; // Stringified Obj
 }
