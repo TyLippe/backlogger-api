@@ -8,7 +8,7 @@ export class ListsController {
   constructor(private readonly listsService: ListsService) {}
 
   @Get()
-  getUsers() {
+  getLists() {
     return this.listsService.getAllLists();
   }
 

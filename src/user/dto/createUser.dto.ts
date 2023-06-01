@@ -11,7 +11,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
-
-  @IsArray()
-  listIds: string[];
 }

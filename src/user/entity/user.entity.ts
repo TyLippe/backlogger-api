@@ -20,7 +20,4 @@ export class Users {
     default: '',
   })
   name: string;
-
-  @Column('text', { array: true })
-  listIds: string[];
 }
