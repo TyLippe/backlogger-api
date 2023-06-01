@@ -15,6 +15,6 @@ export class Lists {
   })
   name: string; // Name of list
 
-  @Column('text', { array: true })
+  @Column('integer', { array: true })
   games: number[]; // List of IGDB game ids
 }
