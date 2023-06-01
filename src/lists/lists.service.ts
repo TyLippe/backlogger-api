@@ -14,7 +14,7 @@ export class ListsService {
     const listData = {};
     const res = await this.listRepository.findBy({ userId });
     for (let list of res) {
-      listData[list.id] = {
+      listData[list.name] = {
         ...list,
         games: JSON.parse(list.games) || {},
       };
